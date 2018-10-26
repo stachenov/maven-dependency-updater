@@ -20,11 +20,11 @@
 
     <actions>
         <!-- Add your actions here -->
-        <action id="name.tachenov.Maven.HelloMaven"
+        <action id="name.tachenov.Maven.UpdateDependencies"
                 class="name.tachenov.intellij.plugins.updateMavenDependencies.UpdateMavenDependencies"
                 text="Update Maven dependencies"
                 description="Set all pom.xml module dependencies to current versions">
-            <add-to-group group-id="Maven.NavigatorActionsToolbar" anchor="before" relative-to-action="Maven.Reimport"/>
+            <add-to-group group-id="Maven.NavigatorActionsToolbar" anchor="after" relative-to-action="Maven.DownloadAllGroupPopup"/>
         </action>
     </actions>
 </idea-plugin>

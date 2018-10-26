@@ -7,6 +7,8 @@ import com.intellij.testFramework.builders.JavaModuleFixtureBuilder
 import com.intellij.testFramework.fixtures.IdeaTestFixtureFactory
 import com.intellij.testFramework.fixtures.JavaCodeInsightTestFixture
 import com.intellij.testFramework.fixtures.JavaTestFixtureFactory
+import org.jetbrains.idea.maven.model.MavenExplicitProfiles
+import org.jetbrains.idea.maven.project.MavenProjectsManager
 import org.junit.Before
 import org.junit.Test
 
@@ -30,11 +32,19 @@ class UpdateMavenDependenciesTest : UsefulTestCase() {
         ModuleRootModificationUtil.updateModel(dependentModule.fixture.module) { model -> model.addContentEntry(dependentRoot)}
         ModuleRootModificationUtil.updateModel(dependencyModule.fixture.module) {model -> model.addContentEntry(dependencyRoot)}
         dependentFile = fixture.copyFileToProject("dependent/pom.xml")
-        fixture.copyFileToProject("dependency/pom.xml")
+        val dependencyFile = fixture.copyFileToProject("dependency/pom.xml")
+        val mavenManager = MavenProjectsManager.getInstance(fixture.project)
+        mavenManager.initForTests()
+        val pomFiles = listOf(dependentFile, dependencyFile)
+        mavenManager.resetManagedFilesAndProfilesInTests(pomFiles, MavenExplicitProfiles.NONE)
+        mavenManager.waitForReadingCompletion()
+        mavenManager.waitForResolvingCompletion()
+        mavenManager.scheduleImportInTests(pomFiles)
+        mavenManager.importProjects()
     }
 
     @Test
-    fun testTwoModules_DependencyVersionsMatch() {
+    fun testSimpleProject() {
         fixture.openFileInEditor(dependentFile)
         fixture.testAction(UpdateMavenDependencies())
         fixture.checkResultByFile("dependent/pom_after.xml")
