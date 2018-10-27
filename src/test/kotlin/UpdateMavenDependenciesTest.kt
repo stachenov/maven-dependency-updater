@@ -1,5 +1,8 @@
 package name.tachenov.intellij.plugins.updateMavenDependencies
 
+import com.intellij.openapi.command.CommandEvent
+import com.intellij.openapi.command.CommandListener
+import com.intellij.openapi.command.CommandProcessor
 import com.intellij.openapi.roots.ModuleRootModificationUtil
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.testFramework.UsefulTestCase
@@ -17,6 +20,8 @@ class UpdateMavenDependenciesTest : UsefulTestCase() {
     private lateinit var fixture: JavaCodeInsightTestFixture
 
     private lateinit var dependentFile: VirtualFile
+
+    private lateinit var executedCommands: MutableList<String>
 
     @Before
     override fun setUp() {
@@ -41,12 +46,21 @@ class UpdateMavenDependenciesTest : UsefulTestCase() {
         mavenManager.waitForResolvingCompletion()
         mavenManager.scheduleImportInTests(pomFiles)
         mavenManager.importProjects()
+        executedCommands = ArrayList()
+        CommandProcessor.getInstance().addCommandListener(object: CommandListener {
+            override fun commandFinished(event: CommandEvent?) {
+                executedCommands.add(event?.commandName ?: return)
+            }
+        })
     }
 
     @Test
     fun testSimpleProject() {
         fixture.openFileInEditor(dependentFile)
+        executedCommands.clear()
         fixture.testAction(UpdateMavenDependencies())
+        val capturedCommands = ArrayList(executedCommands)
         fixture.checkResultByFile("dependent/pom_after.xml")
+        assertOrderedEquals(capturedCommands, listOf("Update Maven dependencies"))
     }
 }

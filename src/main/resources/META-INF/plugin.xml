@@ -1,29 +1,27 @@
 <idea-plugin>
     <id>name.tachenov.intellij.update-maven-dependencies</id>
-    <name>Plugin display name here</name>
-    <vendor email="support@yourcompany.com" url="http://www.yourcompany.com">YourCompany</vendor>
+    <name>Maven Dependency Updater</name>
+    <vendor email="sergei@tachenov.name" url="http://github.com/stachenov/maven-dependency-updater">Sergei Tachenov</vendor>
 
     <description><![CDATA[
-    Enter short description for your plugin here.<br>
-    <em>most HTML tags may be used</em>
+    <p>Updates dependency versions in pom.xml files to match currently open projects (modules).<p>
+
+    <p>Click the Update Maven Dependencies in the Maven Projects tool window, and all dependencies
+    in the currently open Maven projects will be updated to match the currently open versions. External dependencies
+    are not affected in any way.</p>
     ]]></description>
 
-    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
-         on how to target different products -->
-    <!-- uncomment to enable plugin in all products
-    -->
     <depends>org.jetbrains.idea.maven</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <!-- Add your extensions here -->
     </extensions>
 
     <actions>
-        <!-- Add your actions here -->
         <action id="name.tachenov.Maven.UpdateDependencies"
                 class="name.tachenov.intellij.plugins.updateMavenDependencies.UpdateMavenDependencies"
-                text="Update Maven dependencies"
-                description="Set all pom.xml module dependencies to current versions">
+                text="Update Maven Dependencies"
+                description="Set all pom.xml module dependencies to current versions"
+                icon="UpdateMavenDependenciesIcons.UPDATE_MAVEN_DEPENDENCIES">
             <add-to-group group-id="Maven.NavigatorActionsToolbar" anchor="after" relative-to-action="Maven.DownloadAllGroupPopup"/>
         </action>
     </actions>

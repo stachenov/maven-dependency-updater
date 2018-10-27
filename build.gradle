@@ -26,6 +26,5 @@ intellij {
 }
 patchPluginXml {
     changeNotes """
-      Add change notes here.<br>
-      <em>most HTML tags may be used</em>"""
+      The first version contains only a single button."""
 }
