@@ -1,5 +1,5 @@
 <idea-plugin>
-    <id>name.tachenov.intellij.update-maven-dependencies</id>
+    <id>name.tachenov.intellij.maven-dependency-updater</id>
     <name>Maven Dependency Updater</name>
     <vendor email="sergei@tachenov.name" url="http://github.com/stachenov/maven-dependency-updater">Sergei Tachenov</vendor>
 
@@ -18,7 +18,7 @@
 
     <actions>
         <action id="name.tachenov.Maven.UpdateDependencies"
-                class="name.tachenov.intellij.plugins.updateMavenDependencies.UpdateMavenDependencies"
+                class="name.tachenov.intellij.plugins.mavenDependencyUpdater.UpdateMavenDependencies"
                 text="Update Maven Dependencies"
                 description="Set all pom.xml module dependencies to current versions"
                 icon="UpdateMavenDependenciesIcons.UPDATE_MAVEN_DEPENDENCIES">

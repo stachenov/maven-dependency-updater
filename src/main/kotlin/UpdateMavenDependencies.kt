@@ -1,4 +1,4 @@
-package name.tachenov.intellij.plugins.updateMavenDependencies
+package name.tachenov.intellij.plugins.mavenDependencyUpdater
 
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
