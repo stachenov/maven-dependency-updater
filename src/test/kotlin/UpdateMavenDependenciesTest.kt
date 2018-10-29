@@ -3,8 +3,8 @@ package name.tachenov.intellij.plugins.mavenDependencyUpdater
 import com.intellij.openapi.command.CommandEvent
 import com.intellij.openapi.command.CommandListener
 import com.intellij.openapi.command.CommandProcessor
-import com.intellij.openapi.command.UndoConfirmationPolicy
 import com.intellij.openapi.command.undo.UndoManager
+import com.intellij.openapi.fileEditor.FileEditorManager
 import com.intellij.openapi.projectRoots.impl.JavaAwareProjectJdkTableImpl
 import com.intellij.openapi.roots.ModuleRootModificationUtil
 import com.intellij.openapi.vfs.VirtualFile
@@ -55,8 +55,7 @@ class UpdateMavenDependenciesTest : UsefulTestCase() {
         executedCommands = ArrayList()
         CommandProcessor.getInstance().addCommandListener(object: CommandListener {
             override fun commandFinished(event: CommandEvent?) {
-                executedCommands.add(CommandProperties(event?.commandName ?: return,
-                        event.undoConfirmationPolicy))
+                executedCommands.add(CommandProperties(event?.commandName ?: return))
             }
         })
     }
@@ -81,14 +80,14 @@ class UpdateMavenDependenciesTest : UsefulTestCase() {
 
     @Test
     fun testCommandProperties() {
+        fixture.openFileInEditor(dependentFile)
         executedCommands.clear()
         fixture.testAction(UpdateMavenDependencies())
         val capturedCommands = ArrayList(executedCommands)
-        assertOrderedEquals(capturedCommands, listOf(CommandProperties("Update Maven Dependencies",
-                UndoConfirmationPolicy.REQUEST_CONFIRMATION)))
-        assertTrue(UndoManager.getInstance(fixture.project).isUndoAvailable(null))
+        assertOrderedEquals(capturedCommands, listOf(CommandProperties("Update Maven Dependencies")))
+        val editor = FileEditorManager.getInstance(fixture.project).getSelectedEditor(dependentFile)
+        assertTrue(UndoManager.getInstance(fixture.project).isUndoAvailable(editor))
     }
 
-    private data class CommandProperties(val name: String,
-                                         val undoConfirmationPolicy: UndoConfirmationPolicy)
+    private data class CommandProperties(val name: String)
 }

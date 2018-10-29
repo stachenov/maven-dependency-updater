@@ -2,7 +2,6 @@ package name.tachenov.intellij.plugins.mavenDependencyUpdater
 
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
-import com.intellij.openapi.command.UndoConfirmationPolicy
 import com.intellij.openapi.command.WriteCommandAction
 import org.jetbrains.idea.maven.dom.MavenDomUtil
 import org.jetbrains.idea.maven.model.MavenId
@@ -28,8 +27,6 @@ class UpdateMavenDependencies : AnAction() {
         }
         WriteCommandAction.writeCommandAction(project)
                 .withName("Update Maven Dependencies")
-                .withGlobalUndo()
-                .withUndoConfirmationPolicy(UndoConfirmationPolicy.REQUEST_CONFIRMATION)
                 .run<Nothing> {
             updates.forEach { it() }
         }
