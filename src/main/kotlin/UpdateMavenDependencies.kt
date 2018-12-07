@@ -9,8 +9,8 @@ import org.jetbrains.idea.maven.model.MavenId
 import org.jetbrains.idea.maven.project.MavenProjectsManager
 
 class UpdateMavenDependencies : AnAction() {
-    override fun actionPerformed(e: AnActionEvent?) {
-        val project = (e ?: return).project ?: return
+    override fun actionPerformed(e: AnActionEvent) {
+        val project = e.project ?: return
         val projects = MavenProjectsManager.getInstance(project).projects
         val currentVersions = projects.asSequence()
                 .filter { it.mavenId.uniqueArtifactId != null && it.mavenId.version != null}

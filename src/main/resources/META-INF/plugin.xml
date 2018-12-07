@@ -6,7 +6,7 @@
     <description><![CDATA[
     <p>Updates dependency versions in pom.xml files to match currently open projects (modules).<p>
 
-    <p>Click the Update Maven Dependencies in the Maven Projects tool window, and all dependencies
+    <p>Click the Update Maven Dependencies button in the Maven Projects tool window, and all dependencies
     in the currently open Maven projects will be updated to match the currently open versions. External dependencies
     are not affected in any way.</p>
     ]]></description>

@@ -1,8 +1,8 @@
 package name.tachenov.intellij.plugins.mavenDependencyUpdater
 
+import com.intellij.application.subscribe
 import com.intellij.openapi.command.CommandEvent
 import com.intellij.openapi.command.CommandListener
-import com.intellij.openapi.command.CommandProcessor
 import com.intellij.openapi.command.UndoConfirmationPolicy
 import com.intellij.openapi.command.undo.UndoManager
 import com.intellij.openapi.projectRoots.impl.JavaAwareProjectJdkTableImpl
@@ -53,9 +53,9 @@ class UpdateMavenDependenciesTest : UsefulTestCase() {
         mavenManager.scheduleImportInTests(pomFiles)
         mavenManager.importProjects()
         executedCommands = ArrayList()
-        CommandProcessor.getInstance().addCommandListener(object: CommandListener {
-            override fun commandFinished(event: CommandEvent?) {
-                executedCommands.add(CommandProperties(event?.commandName ?: return,
+        CommandListener.TOPIC.subscribe(null, object: CommandListener {
+            override fun commandFinished(event: CommandEvent) {
+                executedCommands.add(CommandProperties(event.commandName ?: return,
                         event.undoConfirmationPolicy))
             }
         })
