@@ -11,6 +11,7 @@
     are not affected in any way.</p>
     ]]></description>
 
+    <depends>com.intellij.modules.platform</depends>
     <depends>org.jetbrains.idea.maven</depends>
 
     <extensions defaultExtensionNs="com.intellij">
