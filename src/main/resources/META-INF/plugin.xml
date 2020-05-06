@@ -8,7 +8,12 @@
 
     <p>Click the Update Maven Dependencies button in the Maven Projects tool window, and all dependencies
     in the currently open Maven projects will be updated to match the currently open versions. External dependencies
-    are not affected in any way.</p>
+    are not affected in any way.<p>
+
+    <p>Note: since 2020.1 IDEA changed the way it handles Maven projects. The auto-import feature is now unavailable,
+    and in order for this plugin to function properly, it is now needed to manually reimport Maven changes
+    (Ctrl+Shift+O by default) both before AND after clicking the Update Maven Dependencies button. Vote
+    for <a href="https://youtrack.jetbrains.com/issue/IDEA-235459">IDEA-235459</a> if you don't like the “new” way.
     ]]></description>
 
     <depends>com.intellij.modules.platform</depends>
