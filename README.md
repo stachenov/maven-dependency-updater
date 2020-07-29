@@ -6,6 +6,8 @@ Sometimes, when you have a few modules represented by Maven projects, managing d
 
 This plugin adds a single button in the Maven Projects tool window. When you click it, all dependency versions are automatically updated to the currently open versions. External dependencies are not affected in any way.
 
+For better experience, enable Maven auto-update in IDEA. This is done differently in different versions, but essentialy you want IDEA to pick up any changes to POM files without having to click any annoying buttons every time. 
+
 **Example workflow**
 
 If you have a dependency graph like this:
