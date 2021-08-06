@@ -5,7 +5,7 @@ plugins {
 }
 
 group 'name.tachenov.intellij.plugins'
-version '2021.2'
+version '2021.2.0.1-SNAPSHOT'
 
 repositories {
     mavenCentral()
@@ -22,7 +22,7 @@ compileTestKotlin {
     kotlinOptions.jvmTarget = "11"
 }
 intellij {
-    version '2021.2'
+    version = '2021.2'
     plugins = ['maven', 'properties', 'java']
 }
 patchPluginXml {
