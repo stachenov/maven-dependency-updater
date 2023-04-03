@@ -19,10 +19,10 @@ class UpdateMavenDependencies : AnAction() {
         for (mavenProject in projects) {
             val domModel = MavenDomUtil.getMavenDomProjectModel(project, mavenProject.file) ?: continue
             for (dependency in domModel.dependencies.dependencies) {
-                val dependencyArtifact = nullableUniqueArtifactId(dependency.groupId.value, dependency.artifactId.value)
+                val dependencyArtifact = nullableUniqueArtifactId(dependency.groupId.stringValue, dependency.artifactId.stringValue)
                 val currentVersion = currentVersions[dependencyArtifact]
-                if (currentVersion != null && dependency.version.value != currentVersion) {
-                    updates.add { dependency.version.value = currentVersion }
+                if (currentVersion != null && dependency.version.stringValue != currentVersion) {
+                    updates.add { dependency.version.stringValue = currentVersion }
                 }
             }
         }
