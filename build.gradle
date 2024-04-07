@@ -1,11 +1,11 @@
 plugins {
     id 'java'
-    id 'org.jetbrains.intellij' version '1.17.2'
+    id 'org.jetbrains.intellij' version '1.17.3'
     id 'org.jetbrains.kotlin.jvm' version '1.9.23'
 }
 
 group 'name.tachenov.intellij.plugins'
-version '2023.3'
+version '2024.1'
 
 repositories {
     mavenCentral()
@@ -24,12 +24,16 @@ compileTestKotlin {
 }
 
 intellij {
-    version = '2023.3'
+    version = '2024.1'
     plugins = ['maven', 'properties', 'java']
 }
 
 patchPluginXml {
     changeNotes = """
+    <p>2024.1:</p>
+    <ul>
+        <li>IDEA 2024.1 support</li>
+    </ul>
     <p>2023.3:</p>
     <ul>
         <li>IDEA 2023.3 support (late update, missed release)</li>
