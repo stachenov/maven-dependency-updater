@@ -1,35 +1,51 @@
 plugins {
     id 'java'
-    id 'org.jetbrains.intellij' version '1.17.3'
-    id 'org.jetbrains.kotlin.jvm' version '1.9.23'
+    id 'org.jetbrains.intellij.platform' version '2.0.1'
+    id 'org.jetbrains.kotlin.jvm' version '2.0.20'
 }
 
 group 'name.tachenov.intellij.plugins'
-version '2024.1'
+version '2024.2'
 
 repositories {
     mavenCentral()
+    intellijPlatform {
+        defaultRepositories()
+    }
+}
+
+java {
+    sourceCompatibility = "21"
+    targetCompatibility = "17"
 }
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    intellijPlatform {
+        intellijIdeaCommunity "2024.2.0.2"
+        bundledPlugin "org.jetbrains.idea.maven"
+        bundledPlugin "com.intellij.java"
+        pluginVerifier()
+        zipSigner()
+        instrumentationTools()
+    }
 }
 
-compileKotlin {
-    kotlinOptions.jvmTarget = "17"
-}
-
-compileTestKotlin {
-    kotlinOptions.jvmTarget = "17"
-}
-
-intellij {
-    version = '2024.1'
-    plugins = ['maven', 'properties', 'java']
+intellijPlatform {
+    pluginConfiguration {
+        ideaVersion {
+            sinceBuild = '242'
+            untilBuild = provider { (String) null }
+        }
+    }
 }
 
 patchPluginXml {
     changeNotes = """
+    <p>2024.2:</p>
+    <ul>
+        <li>IDEA 2024.2+ support</li>
+    </ul>
     <p>2024.1:</p>
     <ul>
         <li>IDEA 2024.1 support</li>
